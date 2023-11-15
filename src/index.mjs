@@ -1,4 +1,5 @@
 // @ts-check
+import { env } from 'node:process'
 import http from 'node:http'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -16,6 +17,7 @@ import { rootTypeDefs, rootResolvers } from './schema.mjs'
 
 const app = express()
 const httpServer = http.createServer(app)
+const PORT = env.PORT || 4000
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -56,5 +58,5 @@ app.use(
 app.disable('x-powered-by')
 
 // @ts-ignore
-await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve))
-console.log('🚀 Server ready at http://localhost:4000')
+await new Promise((resolve) => httpServer.listen({ port: PORT }, resolve))
+console.log(`🚀 Server ready at http://localhost:${PORT}`)
